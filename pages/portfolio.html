@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our portfolio of mobile web projects. See the amazing work we've done for clients across various industries.">
+    <meta name="theme-color" content="#6200ea">
+    <title>MobileWeb | Portfolio</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../images/icon-192x192.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Portfolio Page Specific Styles */
+        .portfolio-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: var(--spacing-2xl) 0;
+            text-align: center;
+            color: var(--text-white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .portfolio-hero h1 {
+            font-size: clamp(var(--font-size-2xl), 8vw, var(--font-size-4xl));
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .portfolio-hero p {
+            font-size: var(--font-size-lg);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .portfolio-intro {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+            text-align: center;
+        }
+        
+        .portfolio-intro p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: var(--font-size-lg);
+        }
+        
+        .portfolio-filters {
+            padding: var(--spacing-xl) 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--bg-primary);
+        }
+        
+        .filters-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--bg-primary);
+            border: 2px solid var(--bg-primary);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            border-color: transparent;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .portfolio-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+        
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .portfolio-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+        
+        .portfolio-card:hover .portfolio-image img {
+            transform: scale(1.05);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: var(--spacing-lg);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+        
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-category {
+            position: absolute;
+            top: var(--spacing-md);
+            left: var(--spacing-md);
+            background: var(--primary);
+            color: var(--text-white);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .portfolio-title {
+            color: var(--text-white);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--text-white);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            transition: gap var(--transition-fast);
+        }
+        
+        .portfolio-link:hover {
+            gap: var(--spacing-md);
+        }
+        
+        .portfolio-content {
+            padding: var(--spacing-xl);
+        }
+        
+        .portfolio-content h3 {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .portfolio-content p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .portfolio-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-lg);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+        
+        .portfolio-meta span {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .portfolio-meta i {
+            color: var(--primary);
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+        
+        .portfolio-tag {
+            background: var(--bg-secondary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+        }
+        
+        .portfolio-actions {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        
+        .portfolio-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .portfolio-btn-primary {
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            border: none;
+        }
+        
+        .portfolio-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary);
+        }
+        
+        .portfolio-btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--bg-primary);
+        }
+        
+        .portfolio-btn-secondary:hover {
+            background: var(--bg-primary);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .case-studies-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+        
+        .case-study-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        .case-study-image {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .case-study-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .case-study-content {
+            padding: var(--spacing-xl);
+        }
+        
+        .case-study-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-lg);
+            gap: var(--spacing-lg);
+        }
+        
+        .case-study-title {
+            font-size: var(--font-size-2xl);
+            flex: 1;
+        }
+        
+        .case-study-badge {
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        
+        .case-study-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.8;
+        }
+        
+        .case-study-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .case-study-result {
+            text-align: center;
+        }
+        
+        .result-number {
+            display: block;
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .result-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+        
+        .testimonials-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .testimonials-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+        
+        .testimonials-header h2 {
+            font-size: var(--font-size-2xl);
+        }
+        
+        @media (min-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .case-study-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .case-study-header {
+                flex-direction: row;
+            }
+            
+            .portfolio-card {
+                grid-column: span 1;
+            }
+            
+            .portfolio-card.large {
+                grid-column: span 2;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .portfolio-card.large {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MobileWeb</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MobileWeb</span>
+            </a>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+            <li><a href="portfolio.html" class="active"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="../index.html"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="portfolio.html" class="active"><i class="fas fa-briefcase"></i><span>Portfolio</span></a>
+        <a href="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    </nav>
+
+    <!-- Portfolio Hero -->
+    <section class="portfolio-hero scroll-animate">
+        <div class="container">
+            <h1 class="fade-in">Our Portfolio</h1>
+            <p class="fade-in-delay">Explore our collection of stunning mobile web projects that showcase our expertise and creativity.</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Intro -->
+    <section class="portfolio-intro">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Projects</span>
+                <h2 class="section-title">Our Work</h2>
+                <p>We've worked with clients from various industries to create amazing mobile experiences.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Filters -->
+    <section class="portfolio-filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group scroll-animate">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="web-design">Web Design</button>
+                    <button class="filter-btn" data-filter="mobile-app">Mobile App</button>
+                    <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+                    <button class="filter-btn" data-filter="pwa">PWA</button>
+                    <button class="filter-btn" data-filter="seo">SEO</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="portfolio-grid" id="portfolioGrid">
+        <div class="container">
+            <!-- Web Design Projects -->
+            <div class="portfolio-card scroll-animate" data-category="web-design">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="TechCorp Website" data-src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">Web Design</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">TechCorp Redesign</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>TechCorp Website Redesign</h3>
+                    <p>A complete redesign of TechCorp's digital presence with a mobile-first approach.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> June 2024</span>
+                        <span><i class="fas fa-user"></i> TechCorp</span>
+                        <span><i class="fas fa-tag"></i> $5,000</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Responsive</span>
+                        <span class="portfolio-tag">UI/UX</span>
+                        <span class="portfolio-tag">SEO</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card scroll-animate delay-1" data-category="web-design">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop" alt="Creative Studio" data-src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">Web Design</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">Creative Studio</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>Creative Studio Portfolio</h3>
+                    <p>A stunning portfolio website for a creative design studio.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> March 2024</span>
+                        <span><i class="fas fa-user"></i> Creative Studio</span>
+                        <span><i class="fas fa-tag"></i> $3,500</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Design</span>
+                        <span class="portfolio-tag">Animation</span>
+                        <span class="portfolio-tag">Mobile</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile App Projects -->
+            <div class="portfolio-card scroll-animate delay-2" data-category="mobile-app">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop" alt="Fitness App" data-src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">Mobile App</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">FitLife App</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>FitLife Mobile App</h3>
+                    <p>A progressive web app for fitness tracking and workout planning.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> April 2024</span>
+                        <span><i class="fas fa-user"></i> FitLife Inc.</span>
+                        <span><i class="fas fa-tag"></i> $8,000</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">PWA</span>
+                        <span class="portfolio-tag">React</span>
+                        <span class="portfolio-tag">Offline</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card scroll-animate delay-3" data-category="mobile-app">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="Travel Companion" data-src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">Mobile App</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">Travel Companion</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>Travel Companion App</h3>
+                    <p>A travel planning app with real-time updates and offline capabilities.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> May 2024</span>
+                        <span><i class="fas fa-user"></i> Wanderlust Co.</span>
+                        <span><i class="fas fa-tag"></i> $12,000</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">PWA</span>
+                        <span class="portfolio-tag">Vue.js</span>
+                        <span class="portfolio-tag">Maps</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- E-Commerce Projects -->
+            <div class="portfolio-card scroll-animate delay-4" data-category="ecommerce">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop" alt="Fashion Store" data-src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">E-Commerce</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">Chic Boutique</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>Chic Boutique Online Store</h3>
+                    <p>A mobile-optimized e-commerce platform for a fashion boutique.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> February 2024</span>
+                        <span><i class="fas fa-user"></i> Chic Boutique</span>
+                        <span><i class="fas fa-tag"></i> $7,500</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Shopify</span>
+                        <span class="portfolio-tag">Mobile</span>
+                        <span class="portfolio-tag">Payment</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card scroll-animate delay-5" data-category="ecommerce">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="Tech Gadgets" data-src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">E-Commerce</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">Gadget World</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>Gadget World Store</h3>
+                    <p>A high-performance e-commerce site for tech gadgets and accessories.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> January 2024</span>
+                        <span><i class="fas fa-user"></i> Gadget World</span>
+                        <span><i class="fas fa-tag"></i> $15,000</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">WordPress</span>
+                        <span class="portfolio-tag">WooCommerce</span>
+                        <span class="portfolio-tag">SEO</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PWA Projects -->
+            <div class="portfolio-card scroll-animate delay-6 large" data-category="pwa">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop" alt="Productivity Suite" data-src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop">
+                    <div class="portfolio-category">PWA</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">Productivity Suite</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>Productivity Suite PWA</h3>
+                    <p>A complete productivity suite with offline capabilities, push notifications, and installable on any device.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> December 2023</span>
+                        <span><i class="fas fa-user"></i> WorkFlow Inc.</span>
+                        <span><i class="fas fa-tag"></i> $20,000</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">PWA</span>
+                        <span class="portfolio-tag">React</span>
+                        <span class="portfolio-tag">Service Worker</span>
+                        <span class="portfolio-tag">Offline</span>
+                    </div>
+                    <div class="portfolio-actions">
+                        <button class="portfolio-btn portfolio-btn-primary">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                        <button class="portfolio-btn portfolio-btn-secondary">
+                            <i class="fas fa-link"></i> Live Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEO Projects -->
+            <div class="portfolio-card scroll-animate delay-7" data-category="seo">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="SEO Optimization" data-src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">SEO</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">HealthPlus SEO</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>HealthPlus SEO Optimization</h3>
+                    <p>Complete SEO overhaul for HealthPlus website resulting in 300% increase in organic traffic.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> November 2023</span>
+                        <span><i class="fas fa-user"></i> HealthPlus</span>
+                        <span><i class="fas fa-tag"></i> $2,500</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">SEO</span>
+                        <span class="portfolio-tag">Content</span>
+                        <span class="portfolio-tag">Analytics</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card scroll-animate delay-8" data-category="seo">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="Local Business SEO" data-src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop">
+                    <div class="portfolio-category">SEO</div>
+                    <div class="portfolio-overlay">
+                        <div>
+                            <h4 class="portfolio-title">Local SEO Boost</h4>
+                            <a href="#" class="portfolio-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>Local Business SEO</h3>
+                    <p>Local SEO campaign for a restaurant chain resulting in top 3 rankings for all target keywords.</p>
+                    <div class="portfolio-meta">
+                        <span><i class="fas fa-calendar"></i> October 2023</span>
+                        <span><i class="fas fa-user"></i> Foodie Delight</span>
+                        <span><i class="fas fa-tag"></i> $3,500</span>
+                    </div>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Local SEO</span>
+                        <span class="portfolio-tag">Google My Business</span>
+                        <span class="portfolio-tag">Reviews</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="case-studies-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Case Studies</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-description">Dive deeper into some of our most successful projects</p>
+            </div>
+            <div class="case-study-grid">
+                <div class="case-study-card scroll-animate">
+                    <div class="case-study-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop" alt="TechCorp Case Study" data-src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop">
+                    </div>
+                    <div class="case-study-content">
+                        <div class="case-study-header">
+                            <h3 class="case-study-title">TechCorp Digital Transformation</h3>
+                            <span class="case-study-badge">Featured</span>
+                        </div>
+                        <p class="case-study-description">A complete digital transformation for TechCorp, resulting in a 400% increase in mobile traffic and a 250% boost in conversions.</p>
+                        <div class="case-study-results">
+                            <div class="case-study-result">
+                                <span class="result-number">400%</span>
+                                <span class="result-label">Mobile Traffic Increase</span>
+                            </div>
+                            <div class="case-study-result">
+                                <span class="result-number">250%</span>
+                                <span class="result-label">Conversion Rate</span>
+                            </div>
+                            <div class="case-study-result">
+                                <span class="result-number">95%</span>
+                                <span class="result-label">User Satisfaction</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-book"></i> Read Case Study
+                        </a>
+                    </div>
+                </div>
+                <div class="case-study-card scroll-animate delay-1">
+                    <div class="case-study-image">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop" alt="FitLife Case Study" data-src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop">
+                    </div>
+                    <div class="case-study-content">
+                        <div class="case-study-header">
+                            <h3 class="case-study-title">FitLife App Success</h3>
+                            <span class="case-study-badge">Mobile App</span>
+                        </div>
+                        <p class="case-study-description">The FitLife PWA achieved 10,000+ downloads in the first month and received a 4.8-star rating from users.</p>
+                        <div class="case-study-results">
+                            <div class="case-study-result">
+                                <span class="result-number">10K+</span>
+                                <span class="result-label">Downloads</span>
+                            </div>
+                            <div class="case-study-result">
+                                <span class="result-number">4.8</span>
+                                <span class="result-label">App Store Rating</span>
+                            </div>
+                            <div class="case-study-result">
+                                <span class="result-number">90%</span>
+                                <span class="result-label">Daily Active Users</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-book"></i> Read Case Study
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Project?</h2>
+                <p>Let us create an amazing mobile experience for your business. Get started with a free consultation.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="contact.html" class="btn btn-primary btn-large">
+                        <i class="fas fa-paper-plane"></i> Get a Quote
+                    </a>
+                    <a href="services.html" class="btn btn-secondary btn-large">
+                        <i class="fas fa-list"></i> View Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="../index.html" class="logo">
+                        <i class="fas fa-rocket"></i>
+                        <span>MobileWeb</span>
+                    </a>
+                    <p>Creating amazing mobile experiences that users love.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Mobile Development</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Maintenance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Silicon Valley</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@mobileweb.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MobileWeb. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/slider.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        // Portfolio Filter Functionality
+        const initPortfolioFilters = () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioCards = document.querySelectorAll('#portfolioGrid .portfolio-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    // Get filter value
+                    const filter = btn.dataset.filter;
+                    
+                    // Filter portfolio cards
+                    portfolioCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                            card.classList.add('scroll-animate');
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        };
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                initPortfolioFilters();
+            });
+        } else {
+            initPortfolioFilters();
+        }
+    </script>
+</body>
+</html>

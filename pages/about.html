@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about MobileWeb - our story, mission, team, and values. We create amazing mobile experiences.">
+    <meta name="theme-color" content="#6200ea">
+    <title>MobileWeb | About Us</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../images/icon-192x192.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* About Page Specific Styles */
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: var(--spacing-2xl) 0;
+            text-align: center;
+            color: var(--text-white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 100px 100px;
+            animation: floatBackground 20s linear infinite;
+        }
+        
+        @keyframes floatBackground {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100px, 100px); }
+        }
+        
+        .about-hero h1 {
+            font-size: clamp(var(--font-size-2xl), 8vw, var(--font-size-4xl));
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-hero p {
+            font-size: var(--font-size-lg);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .story-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+        }
+        
+        .story-image {
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .story-content h2 {
+            font-size: clamp(var(--font-size-xl), 5vw, var(--font-size-3xl));
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .story-content p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            font-size: var(--font-size-lg);
+        }
+        
+        .mission-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+        }
+        
+        .mission-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            font-size: var(--font-size-3xl);
+            color: var(--text-white);
+        }
+        
+        .mission-section h2 {
+            font-size: clamp(var(--font-size-xl), 5vw, var(--font-size-3xl));
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .mission-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
+            font-size: var(--font-size-lg);
+        }
+        
+        .values-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .value-card {
+            background: var(--bg-secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            font-size: var(--font-size-2xl);
+            color: var(--text-white);
+        }
+        
+        .value-card h3 {
+            margin-bottom: var(--spacing-md);
+            font-size: var(--font-size-xl);
+        }
+        
+        .value-card p {
+            color: var(--text-secondary);
+        }
+        
+        .team-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-light) 100%);
+        }
+        
+        .team-section h2,
+        .team-section p {
+            color: var(--text-white);
+        }
+        
+        .team-section p {
+            color: var(--text-light);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .team-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .team-image {
+            height: 250px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: var(--font-size-4xl);
+        }
+        
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+        
+        .team-info h4 {
+            margin-bottom: var(--spacing-xs);
+            font-size: var(--font-size-lg);
+        }
+        
+        .team-info span {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            display: block;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .team-social a {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+        }
+        
+        .team-social a:hover {
+            background: var(--primary);
+            color: var(--text-white);
+            transform: translateY(-2px);
+        }
+        
+        .stats-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: var(--spacing-xl);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: clamp(var(--font-size-2xl), 8vw, var(--font-size-4xl));
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .stat-label {
+            font-size: var(--font-size-md);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .partners-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+        
+        .partner-card {
+            background: var(--bg-primary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .partner-logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            opacity: 0.7;
+            transition: opacity var(--transition-fast);
+        }
+        
+        .partner-card:hover .partner-logo img {
+            opacity: 1;
+        }
+        
+        .partner-card h4 {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .partner-card p {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        .timeline-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: var(--spacing-xl);
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-gradient);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: var(--spacing-xl);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: var(--radius-full);
+            border: 4px solid var(--bg-primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .timeline-content {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-left: var(--spacing-lg);
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .timeline-title {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .timeline-description {
+            color: var(--text-secondary);
+        }
+        
+        @media (min-width: 768px) {
+            .story-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .timeline::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-item {
+                padding-left: 50%;
+            }
+            
+            .timeline-item::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-content {
+                margin-left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                padding-left: 0;
+                padding-right: 50%;
+                text-align: right;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content {
+                margin-right: var(--spacing-lg);
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MobileWeb</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MobileWeb</span>
+            </a>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+            <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="../index.html"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="about.html" class="active"><i class="fas fa-info-circle"></i><span>About</span></a>
+        <a href="services.html"><i class="fas fa-concierge-bell"></i><span>Services</span></a>
+        <a href="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero scroll-animate">
+        <div class="container">
+            <h1 class="fade-in">About MobileWeb</h1>
+            <p class="fade-in-delay">We are a passionate team of designers and developers dedicated to creating exceptional mobile experiences that users love.</p>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Story</span>
+                <h2 class="section-title">Who We Are</h2>
+            </div>
+            <div class="story-grid">
+                <div class="story-image scroll-animate">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop" alt="Our Team Working" data-src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop">
+                </div>
+                <div class="story-content scroll-animate delay-1">
+                    <p>Founded in 2015, MobileWeb started as a small team of web enthusiasts who believed that mobile-first design wasn't just a trend—it was the future. Over the years, we've grown into a leading digital agency, helping businesses of all sizes create stunning, high-performance mobile websites.</p>
+                    <p>Our journey has been driven by a simple philosophy: <strong>Put users first.</strong> Every design decision, every line of code, and every feature we build is focused on creating the best possible experience for the people who use our products.</p>
+                    <p>Today, we're proud to have worked with over 500 clients across the globe, from startups to Fortune 500 companies, helping them transform their digital presence and connect with their audiences on mobile devices.</p>
+                    <a href="contact.html" class="btn btn-primary" style="margin-top: 1rem;">
+                        <i class="fas fa-rocket"></i> Work With Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-icon scroll-animate">
+                <i class="fas fa-target"></i>
+            </div>
+            <h2 class="scroll-animate delay-1">Our Mission</h2>
+            <p class="scroll-animate delay-2">To empower businesses with mobile-optimized websites that are fast, beautiful, and easy to use, helping them connect with their audience anytime, anywhere.</p>
+            <div class="scroll-animate delay-3">
+                <a href="#values" class="btn btn-secondary">
+                    <i class="fas fa-heart"></i> Our Values
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section" id="values">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Core Values</span>
+                <h2 class="section-title">What We Believe In</h2>
+                <p class="section-description">These are the principles that guide everything we do</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card scroll-animate">
+                    <div class="value-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>User-Centric</h3>
+                    <p>We always put the user first. Every decision we make is guided by what's best for the people who use our products.</p>
+                </div>
+                <div class="value-card scroll-animate delay-1">
+                    <div class="value-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Performance</h3>
+                    <p>Speed matters. We optimize every aspect of our websites to ensure lightning-fast performance on all devices.</p>
+                </div>
+                <div class="value-card scroll-animate delay-2">
+                    <div class="value-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Quality</h3>
+                    <p>We never compromise on quality. From design to development, we strive for excellence in everything we do.</p>
+                </div>
+                <div class="value-card scroll-animate delay-3">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We embrace new technologies and approaches, constantly pushing the boundaries of what's possible on the mobile web.</p>
+                </div>
+                <div class="value-card scroll-animate delay-4">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Collaboration</h3>
+                    <p>We work closely with our clients, building strong partnerships based on trust, communication, and mutual respect.</p>
+                </div>
+                <div class="value-card scroll-animate delay-5">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Passion</h3>
+                    <p>We love what we do. Our passion for mobile web development drives us to create amazing experiences every day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Team</span>
+                <h2 class="section-title">Meet Our Experts</h2>
+                <p class="section-description">Our talented team brings together diverse skills and experiences to create amazing mobile websites.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card scroll-animate">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face" alt="John Smith" data-src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face">
+                    </div>
+                    <div class="team-info">
+                        <h4>John Smith</h4>
+                        <span>CEO & Founder</span>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card scroll-animate delay-1">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face" alt="Sarah Johnson" data-src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face">
+                    </div>
+                    <div class="team-info">
+                        <h4>Sarah Johnson</h4>
+                        <span>Head of Design</span>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-dribbble"></i></a>
+                            <a href="#"><i class="fab fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card scroll-animate delay-2">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face" alt="Mike Chen" data-src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face">
+                    </div>
+                    <div class="team-info">
+                        <h4>Mike Chen</h4>
+                        <span>Lead Developer</span>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card scroll-animate delay-3">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face" alt="Emily Davis" data-src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face">
+                    </div>
+                    <div class="team-info">
+                        <h4>Emily Davis</h4>
+                        <span>UX Researcher</span>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-medium"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card scroll-animate delay-4">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face" alt="David Wilson" data-src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face">
+                    </div>
+                    <div class="team-info">
+                        <h4>David Wilson</h4>
+                        <span>Frontend Engineer</span>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card scroll-animate delay-5">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop&crop=face" alt="Lisa Brown" data-src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop&crop=face">
+                    </div>
+                    <div class="team-info">
+                        <h4>Lisa Brown</h4>
+                        <span>Content Strategist</span>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-medium"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">By The Numbers</span>
+                <h2 class="section-title">Our Impact</h2>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item scroll-animate">
+                    <span class="stat-number" data-target="500">0</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+                <div class="stat-item scroll-animate delay-1">
+                    <span class="stat-number" data-target="1200">0</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item scroll-animate delay-2">
+                    <span class="stat-number" data-target="99">0</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+                <div class="stat-item scroll-animate delay-3">
+                    <span class="stat-number" data-target="24">0</span>
+                    <span class="stat-label">Awards Won</span>
+                </div>
+                <div class="stat-item scroll-animate delay-4">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-label">Team Members</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">History</span>
+                <h2 class="section-title">Our Journey</h2>
+                <p class="section-description">From humble beginnings to industry leaders, here's our story</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item scroll-animate">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2015</span>
+                        <h3 class="timeline-title">Founded</h3>
+                        <p class="timeline-description">MobileWeb was founded with a mission to create amazing mobile experiences.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate delay-1">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2016</span>
+                        <h3 class="timeline-title">First Clients</h3>
+                        <p class="timeline-description">We launched our first mobile-optimized websites and gained our first happy clients.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate delay-2">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2017</span>
+                        <h3 class="timeline-title">Team Growth</h3>
+                        <p class="timeline-description">Our team grew to 10 members as demand for our services increased.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate delay-3">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2018</span>
+                        <h3 class="timeline-title">New Office</h3>
+                        <p class="timeline-description">We moved into our new office in Silicon Valley to accommodate our growing team.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate delay-4">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2019</span>
+                        <h3 class="timeline-title">100+ Projects</h3>
+                        <p class="timeline-description">We completed our 100th project and celebrated with our amazing team.</p>
+                    </div>
+                </div>
+                <div class="timeline-item scroll-animate delay-5">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2020-2024</span>
+                        <h3 class="timeline-title">Continued Growth</h3>
+                        <p class="timeline-description">We've continued to grow, serving over 500 clients and winning multiple industry awards.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Partners</span>
+                <h2 class="section-title">Trusted By</h2>
+                <p class="section-description">We're proud to work with these amazing companies and organizations</p>
+            </div>
+            <div class="partners-grid">
+                <div class="partner-card scroll-animate">
+                    <div class="partner-logo">
+                        <i class="fas fa-building" style="font-size: 2rem; color: var(--primary);"></i>
+                    </div>
+                    <h4>TechCorp</h4>
+                    <p>Innovation Partner</p>
+                </div>
+                <div class="partner-card scroll-animate delay-1">
+                    <div class="partner-logo">
+                        <i class="fas fa-globe" style="font-size: 2rem; color: var(--primary);"></i>
+                    </div>
+                    <h4>Global Solutions</h4>
+                    <p>Strategic Partner</p>
+                </div>
+                <div class="partner-card scroll-animate delay-2">
+                    <div class="partner-logo">
+                        <i class="fas fa-rocket" style="font-size: 2rem; color: var(--primary);"></i>
+                    </div>
+                    <h4>StartupX</h4>
+                    <p>Incubation Partner</p>
+                </div>
+                <div class="partner-card scroll-animate delay-3">
+                    <div class="partner-logo">
+                        <i class="fas fa-code" style="font-size: 2rem; color: var(--primary);"></i>
+                    </div>
+                    <h4>DevHub</h4>
+                    <p>Technology Partner</p>
+                </div>
+                <div class="partner-card scroll-animate delay-4">
+                    <div class="partner-logo">
+                        <i class="fas fa-paint-brush" style="font-size: 2rem; color: var(--primary);"></i>
+                    </div>
+                    <h4>Creative Studio</h4>
+                    <p>Design Partner</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Join Our Story?</h2>
+                <p>Whether you're looking to start a new project or join our team, we'd love to hear from you.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="contact.html" class="btn btn-primary btn-large">
+                        <i class="fas fa-paper-plane"></i> Get in Touch
+                    </a>
+                    <a href="#" class="btn btn-secondary btn-large">
+                        <i class="fas fa-users"></i> Join Our Team
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="../index.html" class="logo">
+                        <i class="fas fa-rocket"></i>
+                        <span>MobileWeb</span>
+                    </a>
+                    <p>Creating amazing mobile experiences that users love.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Mobile Development</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Maintenance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Silicon Valley</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@mobileweb.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MobileWeb. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/slider.js"></script>
+    <script src="../js/animations.js"></script>
+</body>
+</html>

@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover our comprehensive mobile web services including design, development, SEO, and maintenance. We create amazing mobile experiences.">
+    <meta name="theme-color" content="#6200ea">
+    <title>MobileWeb | Services</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../images/icon-192x192.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Services Page Specific Styles */
+        .services-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: var(--spacing-2xl) 0;
+            text-align: center;
+            color: var(--text-white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .services-hero h1 {
+            font-size: clamp(var(--font-size-2xl), 8vw, var(--font-size-4xl));
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .services-hero p {
+            font-size: var(--font-size-lg);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .services-intro {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+            text-align: center;
+        }
+        
+        .services-intro p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: var(--font-size-lg);
+        }
+        
+        .services-grid-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .service-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-image {
+            height: 200px;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: var(--font-size-4xl);
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .service-content {
+            padding: var(--spacing-xl);
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-lg);
+            font-size: var(--font-size-xl);
+            color: var(--text-white);
+        }
+        
+        .service-content h3 {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .service-content p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        .service-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary);
+            font-size: var(--font-size-sm);
+        }
+        
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--primary);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            transition: gap var(--transition-fast);
+        }
+        
+        .service-link:hover {
+            gap: var(--spacing-md);
+        }
+        
+        .service-categories {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .category-card {
+            background: var(--bg-secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            font-size: var(--font-size-2xl);
+            color: var(--text-white);
+        }
+        
+        .category-card h4 {
+            margin-bottom: var(--spacing-md);
+            font-size: var(--font-size-lg);
+        }
+        
+        .category-card p {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        .process-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-light) 100%);
+        }
+        
+        .process-section h2,
+        .process-section p {
+            color: var(--text-white);
+        }
+        
+        .process-section p {
+            color: var(--text-light);
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--text-white);
+        }
+        
+        .process-step h4 {
+            color: var(--text-white);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .process-step p {
+            color: var(--text-light);
+            font-size: var(--font-size-sm);
+        }
+        
+        .step-connector {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        
+        .process-visual {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+            flex-wrap: wrap;
+        }
+        
+        .process-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+        }
+        
+        .process-item i {
+            color: var(--primary);
+            font-size: var(--font-size-lg);
+        }
+        
+        .process-item span {
+            color: var(--text-white);
+        }
+        
+        .pricing-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-primary);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--bg-secondary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+            border: 2px solid transparent;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pricing-card.featured {
+            background: var(--primary);
+            color: var(--text-white);
+            border-color: var(--primary-dark);
+        }
+        
+        .pricing-card.featured h3,
+        .pricing-card.featured .price,
+        .pricing-card.featured .period,
+        .pricing-card.featured .features-list li::before {
+            color: var(--text-white);
+        }
+        
+        .pricing-card.featured .description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .pricing-card.featured .btn {
+            background: var(--text-white);
+            color: var(--primary);
+        }
+        
+        .pricing-card.featured .btn:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .plan-name {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .price {
+            font-size: clamp(var(--font-size-2xl), 8vw, var(--font-size-4xl));
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .period {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            font-size: var(--font-size-sm);
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            font-size: var(--font-size-sm);
+        }
+        
+        .features-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary);
+        }
+        
+        .testimonials-preview {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+        
+        .preview-header h2 {
+            font-size: var(--font-size-2xl);
+        }
+        
+        .preview-header a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .process-steps {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .step-connector {
+                display: none;
+            }
+            
+            .process-steps .process-step:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                top: 30px;
+                left: 100%;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--primary), transparent);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MobileWeb</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <a href="../index.html" class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MobileWeb</span>
+            </a>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="services.html" class="active"><i class="fas fa-concierge-bell"></i> Services</a></li>
+            <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="../index.html"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="services.html" class="active"><i class="fas fa-concierge-bell"></i><span>Services</span></a>
+        <a href="portfolio.html"><i class="fas fa-briefcase"></i><span>Portfolio</span></a>
+        <a href="contact.html"><i class="fas fa-envelope"></i><span>Contact</span></a>
+    </nav>
+
+    <!-- Services Hero -->
+    <section class="services-hero scroll-animate">
+        <div class="container">
+            <h1 class="fade-in">Our Services</h1>
+            <p class="fade-in-delay">We offer comprehensive mobile web solutions to help you create amazing digital experiences for your users.</p>
+        </div>
+    </section>
+
+    <!-- Services Intro -->
+    <section class="services-intro">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">What We Do</span>
+                <h2 class="section-title">Comprehensive Mobile Solutions</h2>
+                <p>From design to development and beyond, we provide everything you need to create a stunning mobile website.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-grid-section">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card scroll-animate">
+                    <div class="service-image">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>UI/UX Design</h3>
+                        <p>We create beautiful, intuitive interfaces that users love to use on any device.</p>
+                        <ul class="service-features">
+                            <li>User Research & Analysis</li>
+                            <li>Wireframing & Prototyping</li>
+                            <li>Visual Design</li>
+                            <li>Usability Testing</li>
+                            <li>Design Systems</li>
+                        </ul>
+                        <a href="contact.html" class="service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-card scroll-animate delay-1">
+                    <div class="service-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Mobile Development</h3>
+                        <p>We build fast, responsive websites that work perfectly on all mobile devices.</p>
+                        <ul class="service-features">
+                            <li>Responsive Web Design</li>
+                            <li>Progressive Web Apps</li>
+                            <li>Mobile-First Approach</li>
+                            <li>Cross-Browser Compatibility</li>
+                            <li>Performance Optimization</li>
+                        </ul>
+                        <a href="contact.html" class="service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-card scroll-animate delay-2">
+                    <div class="service-image">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>SEO & Marketing</h3>
+                        <p>We help you get found online and drive traffic to your mobile website.</p>
+                        <ul class="service-features">
+                            <li>SEO Optimization</li>
+                            <li>Content Strategy</li>
+                            <li>Social Media Integration</li>
+                            <li>Analytics & Tracking</li>
+                            <li>Conversion Optimization</li>
+                        </ul>
+                        <a href="contact.html" class="service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-card scroll-animate delay-3">
+                    <div class="service-image">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Website Security</h3>
+                        <p>We protect your website and users with industry-leading security measures.</p>
+                        <ul class="service-features">
+                            <li>SSL Certificates</li>
+                            <li>Security Audits</li>
+                            <li>Malware Protection</li>
+                            <li>Backup Solutions</li>
+                            <li>Privacy Compliance</li>
+                        </ul>
+                        <a href="contact.html" class="service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-card scroll-animate delay-4">
+                    <div class="service-image">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Maintenance & Support</h3>
+                        <p>We keep your website running smoothly with our maintenance and support services.</p>
+                        <ul class="service-features">
+                            <li>Regular Updates</li>
+                            <li>Bug Fixes</li>
+                            <li>Performance Monitoring</li>
+                            <li>Content Updates</li>
+                            <li>24/7 Support</li>
+                        </ul>
+                        <a href="contact.html" class="service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-card scroll-animate delay-5">
+                    <div class="service-image">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>Performance Optimization</h3>
+                        <p>We optimize your website for speed, ensuring fast load times on all devices.</p>
+                        <ul class="service-features">
+                            <li>Image Optimization</li>
+                            <li>Code Minification</li>
+                            <li>Lazy Loading</li>
+                            <li>Caching Strategies</li>
+                            <li>CDN Integration</li>
+                        </ul>
+                        <a href="contact.html" class="service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Categories -->
+    <section class="service-categories">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Categories</span>
+                <h2 class="section-title">Our Areas of Expertise</h2>
+                <p class="section-description">We specialize in these key areas to deliver comprehensive mobile solutions</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card scroll-animate">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Mobile-First Design</h4>
+                    <p>Designing with mobile users in mind from the start</p>
+                </div>
+                <div class="category-card scroll-animate delay-1">
+                    <div class="category-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h4>Custom Design</h4>
+                    <p>Unique, tailored designs for your brand</p>
+                </div>
+                <div class="category-card scroll-animate delay-2">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h4>Frontend Development</h4>
+                    <p>Building beautiful, interactive interfaces</p>
+                </div>
+                <div class="category-card scroll-animate delay-3">
+                    <div class="category-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h4>Backend Integration</h4>
+                    <p>Connecting your website to databases and APIs</p>
+                </div>
+                <div class="category-card scroll-animate delay-4">
+                    <div class="category-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4>SEO Services</h4>
+                    <p>Improving your search engine rankings</p>
+                </div>
+                <div class="category-card scroll-animate delay-5">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Analytics</h4>
+                    <p>Tracking and analyzing user behavior</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Process</span>
+                <h2 class="section-title">How We Work</h2>
+                <p class="section-description">Our proven process ensures we deliver high-quality mobile websites every time</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step scroll-animate">
+                    <div class="step-number">1</div>
+                    <h4>Discovery</h4>
+                    <p>We start by understanding your business, goals, and requirements.</p>
+                </div>
+                <div class="process-step scroll-animate delay-1">
+                    <div class="step-number">2</div>
+                    <h4>Design</h4>
+                    <p>We create wireframes and designs based on your needs and user research.</p>
+                </div>
+                <div class="process-step scroll-animate delay-2">
+                    <div class="step-number">3</div>
+                    <h4>Development</h4>
+                    <p>We build your website with attention to detail and best practices.</p>
+                </div>
+                <div class="process-step scroll-animate delay-3">
+                    <div class="step-number">4</div>
+                    <h4>Launch</h4>
+                    <p>We deploy your website and ensure everything works perfectly.</p>
+                </div>
+            </div>
+            <div class="process-visual scroll-animate delay-4">
+                <div class="process-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Idea</span>
+                </div>
+                <div class="process-item">
+                    <i class="fas fa-pencil-ruler"></i>
+                    <span>Design</span>
+                </div>
+                <div class="process-item">
+                    <i class="fas fa-code"></i>
+                    <span>Develop</span>
+                </div>
+                <div class="process-item">
+                    <i class="fas fa-rocket"></i>
+                    <span>Launch</span>
+                </div>
+                <div class="process-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Grow</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Pricing</span>
+                <h2 class="section-title">Simple, Transparent Pricing</h2>
+                <p class="section-description">Choose the package that best fits your needs. All packages include mobile optimization.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card scroll-animate">
+                    <div class="plan-name">Basic</div>
+                    <div class="price">$999</div>
+                    <div class="period">/ project</div>
+                    <p class="description">Perfect for small businesses and simple websites</p>
+                    <ul class="features-list">
+                        <li>Mobile-optimized design</li>
+                        <li>Up to 5 pages</li>
+                        <li>Contact form</li>
+                        <li>Basic SEO</li>
+                        <li>1 month support</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">
+                        <i class="fas fa-shopping-cart"></i> Get Started
+                    </a>
+                </div>
+                <div class="pricing-card featured scroll-animate delay-1">
+                    <div class="plan-name">Professional</div>
+                    <div class="price">$2,999</div>
+                    <div class="period">/ project</div>
+                    <p class="description">Our most popular package for growing businesses</p>
+                    <ul class="features-list">
+                        <li>Custom mobile design</li>
+                        <li>Up to 15 pages</li>
+                        <li>Contact & quote forms</li>
+                        <li>Advanced SEO</li>
+                        <li>3 months support</li>
+                        <li>Performance optimization</li>
+                        <li>Analytics setup</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </a>
+                </div>
+                <div class="pricing-card scroll-animate delay-2">
+                    <div class="plan-name">Enterprise</div>
+                    <div class="price">$5,999</div>
+                    <div class="period">/ project</div>
+                    <p class="description">For large businesses with complex requirements</p>
+                    <ul class="features-list">
+                        <li>Fully custom design</li>
+                        <li>Unlimited pages</li>
+                        <li>All form types</li>
+                        <li>Premium SEO</li>
+                        <li>6 months support</li>
+                        <li>Performance optimization</li>
+                        <li>Analytics & tracking</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">
+                        <i class="fas fa-building"></i> Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Preview -->
+    <section class="testimonials-preview">
+        <div class="container">
+            <div class="preview-header">
+                <h2>What Our Clients Say</h2>
+                <a href="#">View All Testimonials <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="testimonials-slider" id="servicesTestimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="John Doe" data-src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face">
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"MobileWeb created a stunning mobile website for our business. The design is beautiful and the performance is lightning fast."</p>
+                        <div class="testimonial-author">
+                            <h4>John Doe</h4>
+                            <span>CEO, TechCorp</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Jane Smith" data-src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face">
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"The team at MobileWeb is amazing. They delivered exactly what we needed and on time. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <h4>Jane Smith</h4>
+                            <span>Marketing Director, Innovate</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Mike Johnson" data-src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face">
+                    </div>
+                    <div class="testimonial-content">
+                        <p>"I was amazed by the attention to detail and the mobile-first approach. Our users love the new design."</p>
+                        <div class="testimonial-author">
+                            <h4>Mike Johnson</h4>
+                            <span>Product Manager, StartupX</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Digital Presence?</h2>
+                <p>Get started with a free consultation and see how we can help you create an amazing mobile experience.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="contact.html" class="btn btn-primary btn-large">
+                        <i class="fas fa-paper-plane"></i> Get a Quote
+                    </a>
+                    <a href="portfolio.html" class="btn btn-secondary btn-large">
+                        <i class="fas fa-briefcase"></i> View Our Work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="../index.html" class="logo">
+                        <i class="fas fa-rocket"></i>
+                        <span>MobileWeb</span>
+                    </a>
+                    <p>Creating amazing mobile experiences that users love.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Mobile Development</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Maintenance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Silicon Valley</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@mobileweb.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MobileWeb. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/slider.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        // Initialize testimonials slider for services page
+        const initServicesTestimonials = () => {
+            const container = document.getElementById('servicesTestimonials');
+            
+            if (container) {
+                const isMobile = window.innerWidth < 768;
+                
+                const servicesSlider = new Slider('servicesTestimonials', {
+                    slidesToShow: isMobile ? 1 : 3,
+                    slidesToScroll: 1,
+                    loop: true,
+                    autoplay: true,
+                    autoplaySpeed: 5000,
+                    dots: false,
+                    arrows: false,
+                    swipe: true
+                });
+            }
+        };
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initServicesTestimonials);
+        } else {
+            initServicesTestimonials();
+        }
+    </script>
+</body>
+</html>
